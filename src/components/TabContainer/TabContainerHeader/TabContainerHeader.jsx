@@ -16,6 +16,8 @@ const propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       component: PropTypes.element.isRequired,
+      /** item is disabled */
+      isDisabled: PropTypes.bool.isRequired,
     })
   ).isRequired,
   /** Callback when item is changed */
@@ -60,15 +62,13 @@ const StyledCustomTableHeader = styled.div`
     padding-bottom: 0;
   }
 
-  ${props => {
-    const { design } = props;
-    return design === 'mini'
+  ${props =>
+    props.design === 'mini'
       ? `
         height: 48px;
         line-height: 48px;
       `
-      : '';
-  }}
+      : ''}
 `;
 
 const StyledTabs = styled(Tabs)`
@@ -121,16 +121,14 @@ const TabContainerHeader = ({
   const isEditMode = canEdit && editMode && editMode.isActive;
   const isSelected = items.findIndex(({ id }) => id === currentItemId);
 
-  const sectionTitle = items.map(({ id, name }) => (
+  const sectionTitle = items.map(({ id, name, isDisabled }) => (
     <StyledTab
       key={id}
       design={design}
-      disabled={disabled}
-      onClick={e => {
-        if (!isSelected && !disabled && onChangeItem) {
+      disabled={disabled || isDisabled}
+      onClick={() => {
+        if (!isSelected && !disabled && !isDisabled && onChangeItem) {
           onChangeItem(id);
-        } else {
-          e.preventDefault();
         }
       }}
       onKeyDown={() => {}}
