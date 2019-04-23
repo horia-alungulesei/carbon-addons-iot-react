@@ -77,7 +77,7 @@ const StyledPageHero = styled.div`
 `;
 
 const StyledPageHeroWrap = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -97,7 +97,7 @@ const StyledPageBlurb = styled.p`
 /**
  * Renders the hero text and styles for the page.  Can either render Section and Title with blurb or support a narrow one with breadcrumbs.
  */
-const Page = ({ section, title, blurb, className, crumb, rightContent, switchers }) => (
+const PageHero = ({ section, title, blurb, className, crumb, rightContent, switchers }) => (
   <StyledPageHero className={className}>
     {crumb || (
       <div>
@@ -112,7 +112,7 @@ const Page = ({ section, title, blurb, className, crumb, rightContent, switchers
   </StyledPageHero>
 );
 
-Page.propTypes = propTypes;
-Page.defaultProps = defaultProps;
+PageHero.propTypes = propTypes;
+PageHero.defaultProps = defaultProps;
 
-export default Page;
+export default PageHero;
