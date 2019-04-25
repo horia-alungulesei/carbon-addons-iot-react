@@ -14,7 +14,7 @@ const StructuredListWrapperStyled = styled(StructuredListWrapper)`
    {
     background-color: #ffffff;
     margin-bottom: 0;
-    ${props => (props.isFixedWidth ? 'width: inherit;' : '')}
+    ${props => (props.isfixedwidth ? 'width: inherit;' : '')}
 
     .bx--structured-list-th {
       padding-left: 16px;
@@ -67,7 +67,7 @@ const StyledStructuredListCell = styled(StructuredListCell)`
  */
 const StructuredList = ({ columns, data, design, isFixedWidth, onRowClick, loadingDataLabel }) => (
   <Fragment>
-    <StructuredListWrapperStyled selection isFixedWidth={isFixedWidth}>
+    <StructuredListWrapperStyled selection isfixedwidth={isFixedWidth}>
       <StructuredListHead>
         <StructuredListRow head>
           {columns.map(({ id, title, width = undefined }) => (

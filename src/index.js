@@ -30,4 +30,4 @@ export PageWorkArea from './components/Page/PageWorkArea';
 export NavigationBar from './components/NavigationBar/NavigationBar';
 export Header from './components/Header';
 export SideNav from './components/SideNav';
-export TabContainer from './components/TabContainer/TabContainer';
+export DetailTabContainer from './components/DetailTabContainer/DetailTabContainer';
