@@ -94,10 +94,6 @@ const StyledRightTab = styled.li`
 `;
 
 const StyledTab = styled.li`
-  .bx--tabs__nav-link:focus,
-  .bx--tabs__nav-link:active {
-    box-shadow: none;
-  }
   ${props => {
     const { design } = props;
     return design === 'mini'

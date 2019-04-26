@@ -83,7 +83,7 @@ class DetailTabContainerSimple extends Component {
   };
 }
 
-storiesOf('Detail Tab Container', module)
+storiesOf('DetailTabContainer', module)
   .add('Stateful Example', () => <DetailTabContainerSimple />)
   .add('default', () => (
     <DetailTabContainer
@@ -98,7 +98,15 @@ storiesOf('Detail Tab Container', module)
     />
   ))
   .add('Edit Mode', () => (
-    <DetailTabContainerSimple
+    <DetailTabContainer
+      design={select('design', ['normal', 'mini'], 'normal')}
+      disabled={boolean('disabled', false)}
+      currentItemId="identity"
+      items={items}
+      onClose={() => {
+        window.alert('closing');
+      }}
+      onChangeItem={() => {}}
       canEdit={boolean('canEdit', true)}
       editMode={{
         isActive: boolean('Edit mode - active', false),
