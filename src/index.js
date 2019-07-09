@@ -19,6 +19,7 @@ export CatalogContent from './components/TileCatalog/CatalogContent';
 export ProgressIndicator from './components/ProgressIndicator/ProgressIndicator';
 export StructuredList from './components/StructuredList/StructuredList';
 export ResourceList from './components/ResourceList/ResourceList';
+export ResourceSelectionList from './components/ResourceSelectionList/ResourceSelectionList';
 export FileDrop from './components/FileDrop/FileDrop';
 
 // reusable reducers

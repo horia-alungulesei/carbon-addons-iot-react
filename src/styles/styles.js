@@ -4,6 +4,7 @@ export const COLORS = {
   darkGrayHover: '#2d3f48',
   gray: '#5a6872',
   lightGrey: '#dfe3e6',
+  extraLightGrey: '#f4f7fa',
   blue: '#3d70b2',
   lightBlue: 'rgba(85, 150, 230, 0.1)',
   errorRed: '#e62325',
