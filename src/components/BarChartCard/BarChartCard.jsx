@@ -1,56 +1,129 @@
 import React from 'react';
+import { BarChart } from '@carbon/charts-react';
+import '@carbon/charts/style.css';
+import isEmpty from 'lodash/isEmpty';
 import styled from 'styled-components';
-import C3Chart from 'react-c3js';
-import 'c3/c3.css';
+import withSize from 'react-sizeme';
 
 import { BarChartCardPropTypes, CardPropTypes } from '../../constants/PropTypes';
 import { CARD_SIZES } from '../../constants/LayoutConstants';
 import Card from '../Card/Card';
 
-const ContentWrapper = styled.div`
-  margin: 0 16px 16px 16px;
-  padding-bottom: 8px;
+const BarChartWrapper = styled.div`
+  padding-left: 16px;
+  padding-right: 1rem;
+  padding-top: ${props => (props.isLegendHidden ? '16px' : '0px')};
+  padding-bottom: ${props => (!props.size === CARD_SIZES.MEDIUM ? '16px' : '0px')};
+  position: absolute;
   width: 100%;
+  height: ${props => props.contentHeight};
+
+  &&& {
+    .chart-wrapper g.x.axis g.tick text {
+      transform: rotateY(0);
+      text-anchor: initial !important;
+    }
+    .expand-btn {
+      display: ${props => (props.isEditable ? 'none' : '')};
+    }
+    .legend-wrapper {
+      display: ${props => (props.isLegendHidden ? 'none' : '')};
+      height: ${props => (!props.size === CARD_SIZES.MEDIUM ? '40px' : '20px')} !important;
+      margin-top: -10px;
+      padding-right: 20px;
+    }
+    .chart-holder {
+      width: 100%;
+      height: 100%;
+    }
+    .chart-svg {
+      width: 100%;
+      height: 100%;
+      margin-top: ${props => (props.isLegendHidden ? '-10px' : '')};
+      circle.dot {
+        stroke-opacity: ${props => (props.isEditable ? '1' : '')};
+      }
+    }
+    .chart-tooltip {
+      display: ${props => (props.isEditable ? 'none' : '')};
+    }
+  }
 `;
 
-const BarChartCard = ({ title, content: { data }, size, ...others }) => {
-  const chartData = {
-    columns: data.map(i => [i.label].concat(i.values.map(j => j.y))),
-    colors: data.reduce(
-      (acc, curr) => Object.assign({}, acc, curr.color ? { [curr.label]: curr.color } : {}),
-      {}
-    ),
-    type: 'bar',
-    axis: {
-      x: {
-        type: 'category',
-        categories: data[0].values.map(i => i.x),
-      },
-    },
-    groups: [data.map(i => i.label)],
-  };
-  const chart = {
-    data: chartData,
-    padding: {
-      top: 10,
-      right: 20,
-      left: 50,
-    },
-  };
+const determineHeight = (size, measuredWidth) => {
+  let height = '100%';
+  switch (size) {
+    case CARD_SIZES.MEDIUM:
+    case CARD_SIZES.LARGE:
+      if (measuredWidth && measuredWidth > 635) {
+        height = '90%';
+      }
+      break;
+    case CARD_SIZES.XLARGE:
+      height = '90%';
+      break;
+    default:
+      break;
+  }
+  return height;
+};
+
+const BarChartCard = ({
+  title,
+  content: { xLabel, yLabel, accessibility, stacked },
+  size,
+  interval,
+  isEditable,
+  values: chartData,
+  locale,
+  ...others
+}) => {
   return (
-    <Card title={title} size={size} {...others}>
-      {!others.isLoading ? (
-        <ContentWrapper>
-          <C3Chart
-            {...chart}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-          />
-        </ContentWrapper>
-      ) : null}
-    </Card>
+    <withSize.SizeMe>
+      {({ size: measuredSize }) => {
+        const height = determineHeight(size, measuredSize.width);
+        return (
+          <Card
+            title={title}
+            size={size}
+            {...others}
+            isEditable={isEditable}
+            isEmpty={isEmpty(chartData)}
+          >
+            {!others.isLoading && !isEmpty(chartData) ? (
+              <BarChartWrapper
+                size={size}
+                contentHeight={height}
+                isLegendHidden={chartData.length === 1}
+                isEditable={isEditable}
+              >
+                <BarChart
+                  data={chartData}
+                  options={{
+                    animations: false,
+                    accessibility: accessibility || false,
+                    scales: {
+                      x: {
+                        title: xLabel,
+                      },
+                      y: {
+                        title: yLabel,
+                        yMaxAdjuster: yMaxValue => yMaxValue * 1.3,
+                        stacked: stacked || false,
+                      },
+                    },
+                    legendClickable: !isEditable,
+                    containerResizable: true,
+                  }}
+                  width="100%"
+                  height="100%"
+                />
+              </BarChartWrapper>
+            ) : null}
+          </Card>
+        );
+      }}
+    </withSize.SizeMe>
   );
 };
 
@@ -58,6 +131,7 @@ BarChartCard.propTypes = { ...CardPropTypes, ...BarChartCardPropTypes };
 
 BarChartCard.defaultProps = {
   size: CARD_SIZES.MEDIUM,
+  values: [],
 };
 
 export default BarChartCard;
