@@ -268,10 +268,9 @@ const TimeSeriesCard = ({
                         title: yLabel,
                         formatter: axisValue => valueFormatter(axisValue, size, unit),
                         // numberOfTicks: 8,
-                        yMaxAdjuster: yMaxValue => yMaxValue * 1.3,
+                        yMaxAdjuster: yMaxValue => yMaxValue * 1.1,
                       },
                     },
-                    curve: 'curveNatural',
                     legendClickable: !isEditable,
                     containerResizable: true,
                     tooltip: {

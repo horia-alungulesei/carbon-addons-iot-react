@@ -88,13 +88,13 @@ const BarChartCard = ({
             size={size}
             {...others}
             isEditable={isEditable}
-            isEmpty={isEmpty(chartData)}
+            isEmpty={isEmpty(Object.keys(chartData))}
           >
-            {!others.isLoading && !isEmpty(chartData) ? (
+            {!others.isLoading && !isEmpty(Object.keys(chartData)) ? (
               <BarChartWrapper
                 size={size}
                 contentHeight={height}
-                isLegendHidden={chartData.length === 1}
+                isLegendHidden={Object.keys(chartData).length === 1}
                 isEditable={isEditable}
               >
                 <BarChart
@@ -108,7 +108,7 @@ const BarChartCard = ({
                       },
                       y: {
                         title: yLabel,
-                        yMaxAdjuster: yMaxValue => yMaxValue * 1.3,
+                        yMaxAdjuster: yMaxValue => yMaxValue * 1.1,
                         stacked: stacked || false,
                       },
                     },
@@ -131,7 +131,7 @@ BarChartCard.propTypes = { ...CardPropTypes, ...BarChartCardPropTypes };
 
 BarChartCard.defaultProps = {
   size: CARD_SIZES.MEDIUM,
-  values: [],
+  values: {},
 };
 
 export default BarChartCard;
