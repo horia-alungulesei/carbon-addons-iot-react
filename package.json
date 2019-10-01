@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "postinstall": "yarn build",
+    "postinstall": "npx rollup -c",
     "build:storybook": "build-storybook",
     "format": "prettier --write \"**/*.{scss,css,js,jsx,md,ts}\"",
     "format:diff": "prettier --list-different \"**/*.{scss,css,js,jsx,md,ts}\"",
