@@ -1,19 +1,20 @@
 {
   "name": "carbon-addons-iot-react",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/IBM/carbon-addons-iot-react.git"
   },
   "license": "Apache-2",
   "files": [
-    "src"
+    "lib"
   ],
   "bugs": {
     "url": "https://github.com/IBM/carbon-addons-iot-react/issues"
   },
   "scripts": {
     "build": "rollup -c",
+    "postinstall": "npm run build",
     "build:storybook": "build-storybook",
     "format": "prettier --write \"**/*.{scss,css,js,jsx,md,ts}\"",
     "format:diff": "prettier --list-different \"**/*.{scss,css,js,jsx,md,ts}\"",
