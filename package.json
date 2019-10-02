@@ -14,7 +14,6 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "prepack": "npx rollup -c",
     "build:storybook": "build-storybook",
     "format": "prettier --write \"**/*.{scss,css,js,jsx,md,ts}\"",
     "format:diff": "prettier --list-different \"**/*.{scss,css,js,jsx,md,ts}\"",
